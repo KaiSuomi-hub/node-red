@@ -1,0 +1,11 @@
+notes.txt
+
+todo:
+ toinen palvelin nayttaa tiedot
+
+Kysy juhalta miten:
+
+done:
+json tai csv tiedosto johon arvot
+node-red-contrib-simpletime lisää timestampin csvhen
+node-red toteuttaa python käskyjä, harkitse lämpötilan näyttöä painamalla nappia tai jatkuvana scrollina

@@ -1,0 +1,420 @@
+[{
+    "id": "2d75625b.aa5636",
+    "type": "tab",
+    "label": "Flow 1",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "8ef4ce34.0dde6",
+    "type": "tab",
+    "label": "Flow 2",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "bf2d7a5b.44a61",
+    "type": "ui_tab",
+    "z": "",
+    "name": "Mittaristo",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+}, {
+    "id": "14e0cebd.229ce9",
+    "type": "ui_base",
+    "theme": {
+        "name": "theme-light",
+        "lightTheme": {
+            "default": "#0094CE",
+            "baseColor": "#0094CE",
+            "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+            "edited": true,
+            "reset": false
+        },
+        "darkTheme": {
+            "default": "#097479",
+            "baseColor": "#097479",
+            "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+            "edited": false
+        },
+        "customTheme": {
+            "name": "Untitled Theme 1",
+            "default": "#4B7930",
+            "baseColor": "#4B7930",
+            "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+        },
+        "themeState": {
+            "base-color": {
+                "default": "#0094CE",
+                "value": "#0094CE",
+                "edited": false
+            },
+            "page-titlebar-backgroundColor": {
+                "value": "#0094CE",
+                "edited": false
+            },
+            "page-backgroundColor": {
+                "value": "#fafafa",
+                "edited": false
+            },
+            "page-sidebar-backgroundColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "group-textColor": {
+                "value": "#1bbfff",
+                "edited": false
+            },
+            "group-borderColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "group-backgroundColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "widget-textColor": {
+                "value": "#111111",
+                "edited": false
+            },
+            "widget-backgroundColor": {
+                "value": "#0094ce",
+                "edited": false
+            },
+            "widget-borderColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "base-font": {
+                "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            }
+        },
+        "angularTheme": {
+            "primary": "indigo",
+            "accents": "blue",
+            "warn": "red",
+            "background": "grey"
+        }
+    },
+    "site": {
+        "name": "Node-RED Dashboard",
+        "hideToolbar": "false",
+        "allowSwipe": "false",
+        "lockMenu": "false",
+        "allowTempTheme": "true",
+        "dateFormat": "DD/MM/YYYY",
+        "sizes": {
+            "sx": 48,
+            "sy": 48,
+            "gx": 6,
+            "gy": 6,
+            "cx": 6,
+            "cy": 6,
+            "px": 0,
+            "py": 0
+        }
+    }
+}, {
+    "id": "c6c25e31.a77748",
+    "type": "ui_group",
+    "z": "",
+    "name": "Viisari",
+    "tab": "bf2d7a5b.44a61",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+}, {
+    "id": "14d4cf6b.d5f321",
+    "type": "scene",
+    "z": "",
+    "name": "default",
+    "overlay": false
+}, {
+    "id": "58805fa1.5ea68",
+    "type": "material",
+    "z": "",
+    "name": "default",
+    "diffuse": "#71d8da",
+    "specular": "#cfb7ee",
+    "alpha": "0.5"
+}, {
+    "id": "7eef4a55.bc8424",
+    "type": "ui_group",
+    "name": "Huoneen ilmasto",
+    "tab": "e168d823.04dfc8",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+}, {
+    "id": "e168d823.04dfc8",
+    "type": "ui_tab",
+    "name": "Home",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": true
+}, {
+    "id": "f89fa570.e02b48",
+    "type": "function",
+    "z": "8ef4ce34.0dde6",
+    "name": "",
+    "func": "var o = msg.payload;\nmsg.payload = o.temperature;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 490,
+    "y": 480,
+    "wires": [
+        ["9924565a.5102c8"]
+    ]
+}, {
+    "id": "8268e9b7.564718",
+    "type": "function",
+    "z": "8ef4ce34.0dde6",
+    "name": "",
+    "func": "var o = msg.payload;\nmsg.payload = o.humidity;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 510,
+    "y": 540,
+    "wires": [
+        ["66fd6dc1.9d8b54"]
+    ]
+}, {
+    "id": "37b9f69b.65540a",
+    "type": "function",
+    "z": "8ef4ce34.0dde6",
+    "name": "",
+    "func": "var o = msg.payload;\nmsg.payload = o.pressure;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 510,
+    "y": 600,
+    "wires": [
+        ["f2f5476a.cf0408"]
+    ]
+}, {
+    "id": "9924565a.5102c8",
+    "type": "ui_chart",
+    "z": "8ef4ce34.0dde6",
+    "name": "Temperature",
+    "group": "7eef4a55.bc8424",
+    "order": 2,
+    "width": "6",
+    "height": "3",
+    "label": "Temperature",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "-40",
+    "ymax": "40",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 670,
+    "y": 480,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "f2f5476a.cf0408",
+    "type": "ui_chart",
+    "z": "8ef4ce34.0dde6",
+    "name": "Air Pressure",
+    "group": "7eef4a55.bc8424",
+    "order": 4,
+    "width": "6",
+    "height": "3",
+    "label": "Air pressure",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "700",
+    "ymax": "1300",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "86400",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 670,
+    "y": 600,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "66fd6dc1.9d8b54",
+    "type": "ui_chart",
+    "z": "8ef4ce34.0dde6",
+    "name": "Humidity",
+    "group": "7eef4a55.bc8424",
+    "order": 3,
+    "width": "6",
+    "height": "3",
+    "label": "Humidity",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "100",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 640,
+    "y": 540,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "bd5c9852.ec9528",
+    "type": "csv",
+    "z": "8ef4ce34.0dde6",
+    "name": "data",
+    "sep": ",",
+    "hdrin": "",
+    "hdrout": true,
+    "multi": "mult",
+    "ret": "\\n",
+    "temp": "Time, temperature,humidity,pressure",
+    "skip": "0",
+    "strings": true,
+    "x": 370,
+    "y": 340,
+    "wires": [
+        ["3155f484.05e1dc", "adba6cec.8a2e9"]
+    ],
+    "outputLabels": ["gg.csv"]
+}, {
+    "id": "adba6cec.8a2e9",
+    "type": "file",
+    "z": "8ef4ce34.0dde6",
+    "name": "out to csv",
+    "filename": "/home/pi/Documents/nodered/data.csv",
+    "appendNewline": true,
+    "createDir": false,
+    "overwriteFile": "false",
+    "encoding": "utf8",
+    "x": 700,
+    "y": 340,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "4ecdc4bd.07a2ec",
+    "type": "delay",
+    "z": "8ef4ce34.0dde6",
+    "name": "One per hour",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "15",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 290,
+    "y": 480,
+    "wires": [
+        ["37b9f69b.65540a", "8268e9b7.564718", "f89fa570.e02b48", "3e0393bb.aa90ec", "72267089.2752b"]
+    ]
+}, {
+    "id": "3e0393bb.aa90ec",
+    "type": "change",
+    "z": "8ef4ce34.0dde6",
+    "name": "Generate array payload",
+    "rules": [{
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 170,
+    "y": 340,
+    "wires": [
+        ["bd5c9852.ec9528"]
+    ]
+}, {
+    "id": "3155f484.05e1dc",
+    "type": "debug",
+    "z": "8ef4ce34.0dde6",
+    "name": "debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 690,
+    "y": 280,
+    "wires": []
+}, {
+    "id": "a19b387c.9830a8",
+    "type": "rpi-sensehat in",
+    "z": "8ef4ce34.0dde6",
+    "name": "temp hum bar",
+    "motion": false,
+    "env": true,
+    "stick": false,
+    "x": 90,
+    "y": 480,
+    "wires": [
+        ["aef02e53.b4edf"]
+    ]
+}, {
+    "id": "aef02e53.b4edf",
+    "type": "function",
+    "z": "8ef4ce34.0dde6",
+    "name": "Aikaleima",
+    "func": "msg.payload.Time = new Date();\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 200,
+    "y": 580,
+    "wires": [
+        ["4ecdc4bd.07a2ec"]
+    ]
+}, {
+    "id": "72267089.2752b",
+    "type": "debug",
+    "z": "8ef4ce34.0dde6",
+    "name": "",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 460,
+    "y": 680,
+    "wires": []
+}]

@@ -1,0 +1,280 @@
+[{
+    "id": "ff1dd84b.0b8cb8",
+    "type": "tab",
+    "label": "Flow 2",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "62a895eb.d0a4d4",
+    "type": "ui_tab",
+    "name": "Home",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+}, {
+    "id": "42ee61e.655102",
+    "type": "ui_base",
+    "theme": {
+        "name": "theme-light",
+        "lightTheme": {
+            "default": "#0094CE",
+            "baseColor": "#0094CE",
+            "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+            "edited": true,
+            "reset": false
+        },
+        "darkTheme": {
+            "default": "#097479",
+            "baseColor": "#097479",
+            "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+            "edited": false
+        },
+        "customTheme": {
+            "name": "Untitled Theme 1",
+            "default": "#4B7930",
+            "baseColor": "#4B7930",
+            "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+        },
+        "themeState": {
+            "base-color": {
+                "default": "#0094CE",
+                "value": "#0094CE",
+                "edited": false
+            },
+            "page-titlebar-backgroundColor": {
+                "value": "#0094CE",
+                "edited": false
+            },
+            "page-backgroundColor": {
+                "value": "#fafafa",
+                "edited": false
+            },
+            "page-sidebar-backgroundColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "group-textColor": {
+                "value": "#1bbfff",
+                "edited": false
+            },
+            "group-borderColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "group-backgroundColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "widget-textColor": {
+                "value": "#111111",
+                "edited": false
+            },
+            "widget-backgroundColor": {
+                "value": "#0094ce",
+                "edited": false
+            },
+            "widget-borderColor": {
+                "value": "#ffffff",
+                "edited": false
+            },
+            "base-font": {
+                "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            }
+        },
+        "angularTheme": {
+            "primary": "indigo",
+            "accents": "blue",
+            "warn": "red",
+            "background": "grey"
+        }
+    },
+    "site": {
+        "name": "Näyttötyö",
+        "hideToolbar": "true",
+        "allowSwipe": "false",
+        "lockMenu": "false",
+        "allowTempTheme": "true",
+        "dateFormat": "DD/MM/YYYY",
+        "sizes": {
+            "sx": 48,
+            "sy": 48,
+            "gx": 6,
+            "gy": 6,
+            "cx": 6,
+            "cy": 6,
+            "px": 0,
+            "py": 0
+        }
+    }
+}, {
+    "id": "5f79411.5bb10c",
+    "type": "ui_group",
+    "name": "Huoneen ilmasto",
+    "tab": "62a895eb.d0a4d4",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+}, {
+    "id": "1d6c14c1.d7815b",
+    "type": "ui_spacer",
+    "name": "spacer",
+    "group": "5f79411.5bb10c",
+    "order": 1,
+    "width": 1,
+    "height": 1
+}, {
+    "id": "bec59393.42ee48",
+    "type": "rpi-sensehat in",
+    "z": "ff1dd84b.0b8cb8",
+    "name": "temp hum bar",
+    "motion": false,
+    "env": true,
+    "stick": false,
+    "x": 320,
+    "y": 320,
+    "wires": [
+        ["1ec4a6a7.75a4d9", "3e9e1129.6cb99e", "659adcfa.f59514"]
+    ]
+}, {
+    "id": "1ec4a6a7.75a4d9",
+    "type": "function",
+    "z": "ff1dd84b.0b8cb8",
+    "name": "",
+    "func": "var o = msg.payload;\nmsg.payload = o.temperature;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 520,
+    "y": 320,
+    "wires": [
+        ["81ce3073.ad9de"]
+    ]
+}, {
+    "id": "3e9e1129.6cb99e",
+    "type": "function",
+    "z": "ff1dd84b.0b8cb8",
+    "name": "",
+    "func": "var o = msg.payload;\nmsg.payload = o.humidity;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 520,
+    "y": 380,
+    "wires": [
+        ["2fc746de.bced2a"]
+    ]
+}, {
+    "id": "659adcfa.f59514",
+    "type": "function",
+    "z": "ff1dd84b.0b8cb8",
+    "name": "",
+    "func": "var o = msg.payload;\nmsg.payload = o.pressure;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 520,
+    "y": 440,
+    "wires": [
+        ["f5b1e748.d9d778"]
+    ]
+}, {
+    "id": "81ce3073.ad9de",
+    "type": "ui_chart",
+    "z": "ff1dd84b.0b8cb8",
+    "name": "Temperature",
+    "group": "5f79411.5bb10c",
+    "order": 1,
+    "width": "6",
+    "height": "3",
+    "label": "Temperature",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "-40",
+    "ymax": "40",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 710,
+    "y": 320,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "f5b1e748.d9d778",
+    "type": "ui_chart",
+    "z": "ff1dd84b.0b8cb8",
+    "name": "Air Pressure",
+    "group": "5f79411.5bb10c",
+    "order": 1,
+    "width": "6",
+    "height": "3",
+    "label": "Air pressure",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "700",
+    "ymax": "1300",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "86400",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 710,
+    "y": 440,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "2fc746de.bced2a",
+    "type": "ui_chart",
+    "z": "ff1dd84b.0b8cb8",
+    "name": "Humidity",
+    "group": "5f79411.5bb10c",
+    "order": 1,
+    "width": "6",
+    "height": "3",
+    "label": "Humidity",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "100",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 700,
+    "y": 380,
+    "wires": [
+        []
+    ]
+}]

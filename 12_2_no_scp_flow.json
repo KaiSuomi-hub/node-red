@@ -1,0 +1,1 @@
+[{"id":"e36b6a1c.1e51c8","type":"csv","z":"7957f082.d8155","name":"data","sep":",","hdrin":"","hdrout":"all","multi":"mult","ret":"\\n","temp":"Time,temperature,humidity,pressure","skip":"0","strings":true,"include_empty_strings":false,"include_null_values":false,"x":930,"y":380,"wires":[["1ea71d31.a6fc83","1f25dbb9.d46164"]],"outputLabels":["gg.csv"]}]
