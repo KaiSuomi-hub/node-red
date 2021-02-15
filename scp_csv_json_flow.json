@@ -1,1 +1,410 @@
-[{"id":"7957f082.d8155","type":"tab","label":"Main_flow_to_csv","disabled":false,"info":""},{"id":"491b300c.64364","type":"rpi-sensehat in","z":"7957f082.d8155","name":"temp hum bar","motion":false,"env":true,"stick":false,"x":150,"y":480,"wires":[["31591157.f9300e"]]},{"id":"d83a8fd1.14744","type":"function","z":"7957f082.d8155","name":"Parse out temperature","func":"var o = msg.payload;\nmsg.payload = o.temperature;\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","x":740,"y":480,"wires":[["73baba3b.d8d1f4"]]},{"id":"8f2ac63c.8737b8","type":"function","z":"7957f082.d8155","name":"Parse out humidity","func":"var o = msg.payload;\nmsg.payload = o.humidity;\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","x":730,"y":540,"wires":[["88c5278b.7fab58"]]},{"id":"e1360d6c.6ba84","type":"function","z":"7957f082.d8155","name":"Parse out pressure","func":"var o = msg.payload;\nmsg.payload = o.pressure;\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","x":730,"y":600,"wires":[["3efb8359.afff1c"]]},{"id":"73baba3b.d8d1f4","type":"ui_chart","z":"7957f082.d8155","name":"Temperature","group":"5f79411.5bb10c","order":2,"width":"6","height":"3","label":"Temperature","chartType":"line","legend":"false","xformat":"D/M","interpolate":"linear","nodata":"Wait a bit","dot":false,"ymin":"-40","ymax":"40","removeOlder":1,"removeOlderPoints":"","removeOlderUnit":"3600","cutout":0,"useOneColor":false,"useUTC":false,"colors":["#1f77b4","#aec7e8","#ff7f0e","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5"],"outputs":1,"useDifferentColor":false,"x":970,"y":480,"wires":[[]]},{"id":"3efb8359.afff1c","type":"ui_chart","z":"7957f082.d8155","name":"Air Pressure","group":"5f79411.5bb10c","order":4,"width":"6","height":"3","label":"Air pressure","chartType":"line","legend":"false","xformat":"D/M","interpolate":"linear","nodata":"Wait a bit","dot":false,"ymin":"700","ymax":"1300","removeOlder":1,"removeOlderPoints":"","removeOlderUnit":"86400","cutout":0,"useOneColor":false,"useUTC":false,"colors":["#1f77b4","#aec7e8","#ff7f0e","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5"],"outputs":1,"useDifferentColor":false,"x":970,"y":600,"wires":[[]]},{"id":"88c5278b.7fab58","type":"ui_chart","z":"7957f082.d8155","name":"Humidity","group":"5f79411.5bb10c","order":3,"width":"6","height":"3","label":"Humidity","chartType":"line","legend":"false","xformat":"D/M","interpolate":"linear","nodata":"Wait a bit","dot":false,"ymin":"0","ymax":"100","removeOlder":1,"removeOlderPoints":"","removeOlderUnit":"3600","cutout":0,"useOneColor":false,"useUTC":false,"colors":["#1f77b4","#aec7e8","#ff7f0e","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5"],"outputs":1,"useDifferentColor":false,"x":960,"y":540,"wires":[[]]},{"id":"e36b6a1c.1e51c8","type":"csv","z":"7957f082.d8155","name":"Parse to csv","sep":",","hdrin":true,"hdrout":"all","multi":"mult","ret":"\\n","temp":"Time,temperature,humidity,pressure","skip":"0","strings":true,"include_empty_strings":false,"include_null_values":false,"x":930,"y":100,"wires":[["1ea71d31.a6fc83"]],"outputLabels":["gg.csv"]},{"id":"1ea71d31.a6fc83","type":"file","z":"7957f082.d8155","name":"Write .csv file","filename":"/home/pi/Documents/nodered/data.csv","appendNewline":true,"createDir":true,"overwriteFile":"false","encoding":"utf8","x":1130,"y":100,"wires":[["43128911.446728"]]},{"id":"ab7ab4ec.b1a7b8","type":"delay","z":"7957f082.d8155","name":"One per hour","pauseType":"rate","timeout":"5","timeoutUnits":"seconds","rate":"1","nbRateUnits":"1","rateUnits":"hour","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":true,"x":490,"y":480,"wires":[["d83a8fd1.14744","8f2ac63c.8737b8","e1360d6c.6ba84","65aee5a7.ba85ac","56521e19.06caa"]]},{"id":"65aee5a7.ba85ac","type":"change","z":"7957f082.d8155","name":"Generate array payload","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":730,"y":380,"wires":[["e36b6a1c.1e51c8","4359bbbb.16bec4"]]},{"id":"31591157.f9300e","type":"function","z":"7957f082.d8155","name":"Timestamp","func":"msg.payload.Time = new Date();\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","x":330,"y":480,"wires":[["ab7ab4ec.b1a7b8"]]},{"id":"56521e19.06caa","type":"debug","z":"7957f082.d8155","name":"Data out, with timestamp","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":760,"y":680,"wires":[]},{"id":"43128911.446728","type":"exec","z":"7957f082.d8155","command":"scp /home/pi/Documents/nodered/data.csv suoant@geronimo.okol.org://home/LABRA/suoant/public_html/nodered/","addpay":false,"append":"","useSpawn":"false","timer":"","oldrc":false,"name":"SCP data.csv to geronimo","x":1350,"y":100,"wires":[[],["d97b3d1c.fff2d"],[]]},{"id":"d97b3d1c.fff2d","type":"debug","z":"7957f082.d8155","name":"csv SCP status","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","statusVal":"","statusType":"auto","x":1600,"y":100,"wires":[]},{"id":"4359bbbb.16bec4","type":"json","z":"7957f082.d8155","name":"Parse to json","property":"payload","action":"","pretty":false,"x":950,"y":240,"wires":[["cf610783.738c08"]]},{"id":"cf610783.738c08","type":"file","z":"7957f082.d8155","name":"Write .jsonfile","filename":"/home/pi/Documents/nodered/data.json","appendNewline":true,"createDir":true,"overwriteFile":"false","encoding":"utf8","x":1120,"y":240,"wires":[["4e32d203.4788ec","ded315cf.94fe28"]]},{"id":"4e32d203.4788ec","type":"exec","z":"7957f082.d8155","command":"scp /home/pi/Documents/nodered/data.json suoant@geronimo.okol.org://home/LABRA/suoant/public_html/nodered/","addpay":false,"append":"","useSpawn":"false","timer":"","oldrc":false,"name":"SCP data.json to geronimo","x":1360,"y":240,"wires":[[],["7851ba6d.3a48f4"],[]]},{"id":"7851ba6d.3a48f4","type":"debug","z":"7957f082.d8155","name":"Json SCP status","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","statusVal":"","statusType":"auto","x":1600,"y":240,"wires":[]},{"id":"f2615300.3fa1f","type":"catch","z":"7957f082.d8155","name":"debug alll","scope":null,"uncaught":false,"x":1310,"y":420,"wires":[[]]},{"id":"ded315cf.94fe28","type":"debug","z":"7957f082.d8155","name":"Json format","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":1320,"y":340,"wires":[]},{"id":"5f79411.5bb10c","type":"ui_group","name":"Huoneen ilmasto","tab":"62a895eb.d0a4d4","order":1,"disp":true,"width":"6","collapse":false},{"id":"62a895eb.d0a4d4","type":"ui_tab","name":"Home","icon":"dashboard","disabled":false,"hidden":true}]
+[{
+    "id": "7957f082.d8155",
+    "type": "tab",
+    "label": "Main_flow_to_csv",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "491b300c.64364",
+    "type": "rpi-sensehat in",
+    "z": "7957f082.d8155",
+    "name": "temp hum bar",
+    "motion": false,
+    "env": true,
+    "stick": false,
+    "x": 150,
+    "y": 480,
+    "wires": [
+        ["31591157.f9300e"]
+    ]
+}, {
+    "id": "d83a8fd1.14744",
+    "type": "function",
+    "z": "7957f082.d8155",
+    "name": "Parse out temperature",
+    "func": "var o = msg.payload;\nmsg.payload = o.temperature;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 740,
+    "y": 480,
+    "wires": [
+        ["73baba3b.d8d1f4"]
+    ]
+}, {
+    "id": "8f2ac63c.8737b8",
+    "type": "function",
+    "z": "7957f082.d8155",
+    "name": "Parse out humidity",
+    "func": "var o = msg.payload;\nmsg.payload = o.humidity;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 730,
+    "y": 540,
+    "wires": [
+        ["88c5278b.7fab58"]
+    ]
+}, {
+    "id": "e1360d6c.6ba84",
+    "type": "function",
+    "z": "7957f082.d8155",
+    "name": "Parse out pressure",
+    "func": "var o = msg.payload;\nmsg.payload = o.pressure;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 730,
+    "y": 600,
+    "wires": [
+        ["3efb8359.afff1c"]
+    ]
+}, {
+    "id": "73baba3b.d8d1f4",
+    "type": "ui_chart",
+    "z": "7957f082.d8155",
+    "name": "Temperature",
+    "group": "5f79411.5bb10c",
+    "order": 2,
+    "width": "6",
+    "height": "3",
+    "label": "Temperature",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "-40",
+    "ymax": "40",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 970,
+    "y": 480,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "3efb8359.afff1c",
+    "type": "ui_chart",
+    "z": "7957f082.d8155",
+    "name": "Air Pressure",
+    "group": "5f79411.5bb10c",
+    "order": 4,
+    "width": "6",
+    "height": "3",
+    "label": "Air pressure",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "700",
+    "ymax": "1300",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "86400",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 970,
+    "y": 600,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "88c5278b.7fab58",
+    "type": "ui_chart",
+    "z": "7957f082.d8155",
+    "name": "Humidity",
+    "group": "5f79411.5bb10c",
+    "order": 3,
+    "width": "6",
+    "height": "3",
+    "label": "Humidity",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "D/M",
+    "interpolate": "linear",
+    "nodata": "Wait a bit",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "100",
+    "removeOlder": 1,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": ["#1f77b4", "#aec7e8", "#ff7f0e", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "x": 960,
+    "y": 540,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "e36b6a1c.1e51c8",
+    "type": "csv",
+    "z": "7957f082.d8155",
+    "name": "Parse to csv",
+    "sep": ",",
+    "hdrin": true,
+    "hdrout": "all",
+    "multi": "mult",
+    "ret": "\\n",
+    "temp": "Time,temperature,humidity,pressure",
+    "skip": "0",
+    "strings": true,
+    "include_empty_strings": false,
+    "include_null_values": false,
+    "x": 930,
+    "y": 100,
+    "wires": [
+        ["1ea71d31.a6fc83"]
+    ],
+    "outputLabels": ["gg.csv"]
+}, {
+    "id": "1ea71d31.a6fc83",
+    "type": "file",
+    "z": "7957f082.d8155",
+    "name": "Write .csv file",
+    "filename": "/home/pi/Documents/nodered/data.csv",
+    "appendNewline": true,
+    "createDir": true,
+    "overwriteFile": "false",
+    "encoding": "utf8",
+    "x": 1130,
+    "y": 100,
+    "wires": [
+        ["43128911.446728"]
+    ]
+}, {
+    "id": "ab7ab4ec.b1a7b8",
+    "type": "delay",
+    "z": "7957f082.d8155",
+    "name": "One per hour",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "hour",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 490,
+    "y": 480,
+    "wires": [
+        ["d83a8fd1.14744", "8f2ac63c.8737b8", "e1360d6c.6ba84", "65aee5a7.ba85ac", "56521e19.06caa"]
+    ]
+}, {
+    "id": "65aee5a7.ba85ac",
+    "type": "change",
+    "z": "7957f082.d8155",
+    "name": "Generate array payload",
+    "rules": [{
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 730,
+    "y": 380,
+    "wires": [
+        ["e36b6a1c.1e51c8", "4359bbbb.16bec4"]
+    ]
+}, {
+    "id": "31591157.f9300e",
+    "type": "function",
+    "z": "7957f082.d8155",
+    "name": "Timestamp",
+    "func": "msg.payload.Time = new Date();\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 330,
+    "y": 480,
+    "wires": [
+        ["ab7ab4ec.b1a7b8"]
+    ]
+}, {
+    "id": "56521e19.06caa",
+    "type": "debug",
+    "z": "7957f082.d8155",
+    "name": "Data out, with timestamp",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 760,
+    "y": 680,
+    "wires": []
+}, {
+    "id": "43128911.446728",
+    "type": "exec",
+    "z": "7957f082.d8155",
+    "command": "scp /home/pi/Documents/nodered/data.csv suoant@geronimo.okol.org://home/LABRA/suoant/public_html/nodered/",
+    "addpay": false,
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "oldrc": false,
+    "name": "SCP data.csv to geronimo",
+    "x": 1350,
+    "y": 100,
+    "wires": [
+        [],
+        ["d97b3d1c.fff2d"],
+        []
+    ]
+}, {
+    "id": "d97b3d1c.fff2d",
+    "type": "debug",
+    "z": "7957f082.d8155",
+    "name": "csv SCP status",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1600,
+    "y": 100,
+    "wires": []
+}, {
+    "id": "4359bbbb.16bec4",
+    "type": "json",
+    "z": "7957f082.d8155",
+    "name": "Parse to json",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 950,
+    "y": 240,
+    "wires": [
+        ["cf610783.738c08"]
+    ]
+}, {
+    "id": "cf610783.738c08",
+    "type": "file",
+    "z": "7957f082.d8155",
+    "name": "Write .jsonfile",
+    "filename": "/home/pi/Documents/nodered/data.json",
+    "appendNewline": true,
+    "createDir": true,
+    "overwriteFile": "false",
+    "encoding": "utf8",
+    "x": 1120,
+    "y": 240,
+    "wires": [
+        ["4e32d203.4788ec", "ded315cf.94fe28"]
+    ]
+}, {
+    "id": "4e32d203.4788ec",
+    "type": "exec",
+    "z": "7957f082.d8155",
+    "command": "scp /home/pi/Documents/nodered/data.json suoant@geronimo.okol.org://home/LABRA/suoant/public_html/nodered/",
+    "addpay": false,
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "oldrc": false,
+    "name": "SCP data.json to geronimo",
+    "x": 1360,
+    "y": 240,
+    "wires": [
+        [],
+        ["7851ba6d.3a48f4"],
+        []
+    ]
+}, {
+    "id": "7851ba6d.3a48f4",
+    "type": "debug",
+    "z": "7957f082.d8155",
+    "name": "Json SCP status",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1600,
+    "y": 240,
+    "wires": []
+}, {
+    "id": "f2615300.3fa1f",
+    "type": "catch",
+    "z": "7957f082.d8155",
+    "name": "debug alll",
+    "scope": null,
+    "uncaught": false,
+    "x": 1310,
+    "y": 420,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "ded315cf.94fe28",
+    "type": "debug",
+    "z": "7957f082.d8155",
+    "name": "Json format",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1320,
+    "y": 340,
+    "wires": []
+}, {
+    "id": "5f79411.5bb10c",
+    "type": "ui_group",
+    "name": "Huoneen ilmasto",
+    "tab": "62a895eb.d0a4d4",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+}, {
+    "id": "62a895eb.d0a4d4",
+    "type": "ui_tab",
+    "name": "Home",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": true
+}]
