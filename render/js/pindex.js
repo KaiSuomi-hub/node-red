@@ -1,4 +1,5 @@
-fetch('http://192.168.1.3/koulu/pilvi/juha-kalliokoski/ohjelmointiymparisto/naytto/node-red/data.csv')
+var url="../data.csv"
+fetch(url, {mode: "no-cors"})
 	.then(function (response) {
 		return response.text();
 	})

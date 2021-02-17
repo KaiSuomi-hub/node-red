@@ -1,18 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Step 4-b</title>
+-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- bootstrap jquery -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <!-- oma style -->
+    <link rel="stylesheet" href="styles.css">
+    <title>Room climate</title>
 </head>
 <body>
-    <div id="temperature" style="width:50%; height:300px; margin:0 auto;"></div>
-    <div id="humidity" style="width:50%; height:300px; margin:0 auto;"></div>
-    <div id="pressure" style="width:50%; height:300px; margin:0 auto;"></div>
+    
+<div class="container-fluid">
+    <div class="col">
+        <div class="row">
+            <h1>Time now <span id="time"></span></h1>
+        </div>
+            <div class="row">
+            <div id="temperature" style="width:50%; height:300px; margin:0 auto;"></div>
+            </div>
 
+    </div>
+</div>
 </body>
 <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script>
 <script src="js/tindex.js"></script>
 <!-- <script src="js/hindex.js"></script> -->
 <!-- <script src="js/pindex.js"></script> -->
+<script>
+    function getPastTimestamp(t) {
+    var d = new Date(t);
+    // muista lisata yksi kuukausiin etta nayttaa oikein
+    MM = d.getMonth()+1;
+    DD = d.getDate();
+    YY = d.getFullYear();
+    hh = d.getHours();
+    mm = d.getMinutes();
+    var output = hh + ":" + mm + " " + DD + "." + MM + "." + YY;
+    return output;
+}
 
+function getCurrentTimestamp() {
+    return getPastTimestamp((new Date()).getTime());
+}
+document.getElementById("time").innerHTML = getCurrentTimestamp();
+</script>
 </html>
