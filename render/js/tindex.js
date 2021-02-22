@@ -37,7 +37,7 @@ function renderChart(series) {
 		type: 'line',
 		title_label_text: 'Room temperature in Celsius and RH',
 		annotations: [{
-			label_text: 'Updates once an hour',
+			label_text: 'Updates once in four hours',
 			position: 'bottom left'
 		}],
 		legend_visible: false,
