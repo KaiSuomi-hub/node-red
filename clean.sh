@@ -1,5 +1,4 @@
-#split data once a week, leave two days of tail
-tail -n 12 ./data.csv<shortdata.csv 
-sed -i '1s/^/Time,temperature,humidity,pressure\n/' ./shortdata.csv &
-mv ./data.csv `date "+%F"`.csv 
-mv ./shortdata.csv ./data.csv
+tail -n 12  /home/LABRA/suoant/public_html/nodered/data.csv>/home/LABRA/suoant/public_html/nodered/shortdata.csv
+sed -i '1s/^/Time,temperature,humidity,pressure\n/'  /home/LABRA/suoant/public_html/nodered/shortdata.csv 
+mv  /home/LABRA/suoant/public_html/nodered/data.csv `date "+%F"`.csv
+mv  /home/LABRA/suoant/public_html/nodered/shortdata.csv  /home/LABRA/suoant/public_html/nodered/data.csv
